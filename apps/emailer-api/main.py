@@ -40,4 +40,5 @@ async def get_email(topic: str):
     code = response[start:end]
     instructions = response[end + 3:]
     content = {"code": code, "instructions": instructions}
+    print(code)
     return JSONResponse(content=content, media_type="application/json")
