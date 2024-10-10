@@ -85,7 +85,7 @@ export default function Home() {
                     <span>Basic customization options</span>
                   </li>
                 </ul>
-                <button className="w-full bg-[#27C08D] hover:bg-[#27C08D]/90 text-white">
+                <button className="w-full py-2 rounded-md bg-[#27C08D] hover:bg-[#27C08D]/90 text-white">
                   Get Started
                 </button>
               </div>
@@ -108,14 +108,10 @@ export default function Home() {
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckIcon className="text-[#27C08D]" />
-                    <span>Priority support</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckIcon className="text-[#27C08D]" />
                     <span>Team collaboration features</span>
                   </li>
                 </ul>
-                <button className="w-full bg-[#27C08D] hover:bg-[#27C08D]/90 text-white">
+                <button className="w-full py-2 rounded-md bg-[#27C08D] hover:bg-[#27C08D]/90 text-white">
                   Sign Up
                 </button>
               </div>
