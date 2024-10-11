@@ -12,8 +12,12 @@
     "@clerk/clerk-sdk-node": "^5.0.49",
     "@clerk/nextjs": "^5.7.2",
     "@tabler/icons-react": "^3.19.0",
+    "axios": "^1.7.7",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.4",
+    "mjml": "^4.15.3",
+    "mjml-browser": "^4.15.3",
+    "mjml-react": "^2.0.8",
     "next": "14.2.14",
     "pg": "^8.13.0",
     "react": "^18",
@@ -23,6 +27,8 @@
     "tailwind-merge": "^2.5.3"
   },
   "devDependencies": {
+    "@types/mjml-browser": "^4.15.0",
+    "@types/mjml-react": "^2.0.10",
     "@types/node": "^20",
     "@types/pg": "^8.11.10",
     "@types/react": "^18",
