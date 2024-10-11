@@ -1,11 +1,6 @@
 import Link from "next/link";
-import {
-  SignedIn,
-  SignedOut,
-  UserButton,
-  SignInButton,
-  SignUpButton,
-} from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
+import { IconCaretRightFilled } from "@tabler/icons-react";
 
 export default function Navbar() {
   return (
@@ -22,23 +17,26 @@ export default function Navbar() {
         </Link>
         <SignedOut>
           <SignInButton mode="modal">
-            <button className="text-sm font-medium hover:underline">
+            <button className="bg-[#27C08D] hover:bg-[#27C08D]/90 text-white py-2 px-3 rounded-md">
               Log in
             </button>
           </SignInButton>
-          <SignUpButton mode="modal">
-            <button className="bg-[#27C08D] hover:bg-[#27C08D]/90 text-white py-2 px-3 rounded-md">
-              Sign up
-            </button>
-          </SignUpButton>
         </SignedOut>
         <div
           className="
         mt-1"
         >
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
+          <div className="flex gap-2">
+            <SignedIn>
+              {/* <UserButton /> */}
+              <Link
+                href="/dashboard"
+                className="flex bg-[#27C08D] hover:bg-[#27C08D]/90 text-white py-2 px-3 rounded-md"
+              >
+                Dashboard <IconCaretRightFilled />
+              </Link>
+            </SignedIn>
+          </div>
         </div>
       </nav>
     </header>
