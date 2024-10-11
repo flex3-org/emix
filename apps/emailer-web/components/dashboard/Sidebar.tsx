@@ -13,7 +13,6 @@ import { useState, useEffect } from "react";
 import { SignOutButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
 interface UserDetails {
   name: string;

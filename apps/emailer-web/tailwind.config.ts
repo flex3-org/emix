@@ -12,7 +12,11 @@ module.exports = {
   ],
   darkMode: "class",
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        poppins: ["var(--font-poppins)", "sans-serif"], // Define the Poppins font family
+      },
+    },
   },
   plugins: [addVariablesForColors],
 };

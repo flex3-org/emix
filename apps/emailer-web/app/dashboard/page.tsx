@@ -1,20 +1,21 @@
 "use client";
-import { useState } from "react";
 
+import React, { useState } from "react";
 import {
-  IconMenu2,
   IconCopy,
   IconDownload,
-  IconLogout,
-  IconMail,
   IconDeviceFloppy,
-  IconUser,
   IconHelp,
-  IconX,
 } from "@tabler/icons-react";
 import Sidebar from "@/components/dashboard/Sidebar";
 
 export default function Component() {
+  const [activeSection, setActiveSection] = useState("preview");
+
+  const handleToggleSection = (section: any) => {
+    setActiveSection(section);
+  };
+
   return (
     <div className="flex flex-col h-screen bg-gray-100 lg:flex-row">
       <Sidebar />
@@ -25,20 +26,19 @@ export default function Component() {
         </h1>
         <div className="bg-white p-4 lg:p-6 rounded-lg shadow-sm mb-6">
           <textarea
-            placeholder="Ask IconMailGen an eIconMail..."
-            className="w-full mb-4"
+            placeholder="Ask emailer an email..."
+            className="outline-none w-full mb-4"
           />
           <div className="flex justify-end">
-            <button>Generate EIconMail</button>
+            <button className="bg-black text-white rounded-md px-3 py-2">
+              Generate Email
+            </button>
           </div>
         </div>
         <div className="bg-white p-4 lg:p-6 rounded-lg shadow-sm">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 space-y-4 lg:space-y-0">
-            <h2 className="text-xl font-semibold">Generated EIconMail</h2>
+            <h2 className="text-xl font-semibold">Generated Email</h2>
             <div className="flex flex-wrap items-center gap-2">
-              <select className="border rounded px-2 py-1">
-                <option>Select a version</option>
-              </select>
               <button>
                 <IconHelp className="h-4 w-4" />
               </button>
@@ -53,14 +53,41 @@ export default function Component() {
               </button>
             </div>
           </div>
-          <div className="border rounded-lg p-4 text-center">
-            <div className="text-gray-400 mb-2">
-              <IconHelp className="w-12 h-12 mx-auto" />
+          <div className="border rounded-lg p-4">
+            <div className="flex justify-between bg-gray-200 rounded-sm p-2 gap-3">
+              <button
+                onClick={() => handleToggleSection("preview")}
+                className={`w-full rounded-md p-2 text-left ${
+                  activeSection === "preview" ? "bg-white" : ""
+                }`}
+              >
+                Preview
+              </button>
+              <button
+                onClick={() => handleToggleSection("rawHtml")}
+                className={`w-full rounded-md p-2 text-left ${
+                  activeSection === "rawHtml" ? "bg-white" : ""
+                }`}
+              >
+                Raw HTML
+              </button>
             </div>
-            <h3 className="font-semibold mb-1">No Preview Available</h3>
-            <p className="text-sm text-gray-500">
-              Waiting for the first message to generate a preview.
-            </p>
+            <div className="p-4">
+              {activeSection === "preview" ? (
+                <>
+                  <h3 className="font-semibold mb-1">Preview</h3>
+                  <p>No Preview Available</p>
+                  <p className="text-sm text-gray-500">
+                    Waiting for the first message to generate a preview.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h3 className="font-semibold mb-1">Raw HTML</h3>
+                  <p>No Raw HTML Available</p>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </main>
