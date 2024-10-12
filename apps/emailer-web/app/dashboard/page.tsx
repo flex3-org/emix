@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   IconCopy,
   IconDownload,
@@ -9,13 +9,30 @@ import {
 } from "@tabler/icons-react";
 import Sidebar from "@/components/dashboard/Sidebar";
 import axios from "axios";
-import mjml2html from "mjml-browser"; // Import mjml-browser
+import { useUser } from "@clerk/nextjs";
+import { deductCredits } from "../actions/deduct-credits";
 
-export default function Component() {
+let mjml2html: any = null; // Initialize mjml2html as null
+
+export default function Dashboard() {
+  const { user } = useUser();
   const [activeSection, setActiveSection] = useState("preview");
   const [topic, setTopic] = useState("");
-  const [mjmlContent, setMjmlContent] = useState(""); // State for MJML content
-  const [htmlContent, setHtmlContent] = useState(""); // State for HTML content
+  const [mjmlContent, setMjmlContent] = useState("");
+  const [htmlContent, setHtmlContent] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      mjml2html = (await import("mjml-browser")).default; // Import mjml-browser dynamically
+    })();
+  }, []);
+
+  const updateHtmlContent = (mjmlCode: string) => {
+    if (mjml2html) {
+      const { html } = mjml2html(mjmlCode);
+      setHtmlContent(html);
+    }
+  };
 
   const handleToggleSection = (section: any) => {
     setActiveSection(section);
@@ -23,22 +40,31 @@ export default function Component() {
 
   const createMJLMEmail = async () => {
     try {
+      // First, make the GET request to generate the email
       const response = await axios.get("http://127.0.0.1:8000/response", {
         params: {
           topic: topic,
         },
       });
 
+      // Extract MJML code from the response
       const mjmlCode = response.data.code;
-      setMjmlContent(mjmlCode); // Set raw MJML content
+      setMjmlContent(mjmlCode);
+      updateHtmlContent(mjmlCode);
 
-      // Convert MJML to HTML
-      const { html } = mjml2html(mjmlCode);
-      setHtmlContent(html); // Set converted HTML
+      //@ts-ignore
+      await deductCredits(user.id, 20);
     } catch (err) {
-      console.log(err);
+      console.log("Error creating email:", err);
     }
   };
+
+  // Convert MJML to HTML in real time
+  useEffect(() => {
+    if (mjmlContent && mjml2html) {
+      updateHtmlContent(mjmlContent);
+    }
+  }, [mjmlContent]);
 
   return (
     <div className="flex flex-col h-screen bg-gray-100 lg:flex-row">
@@ -80,6 +106,7 @@ export default function Component() {
               </button>
             </div>
           </div>
+
           <div className="border rounded-lg p-4">
             <div className="flex justify-between bg-gray-200 rounded-sm p-2 gap-3">
               <button
@@ -99,21 +126,34 @@ export default function Component() {
                 Raw HTML
               </button>
             </div>
+
+            {/* MJML Live Editor */}
             <div className="p-4">
               {activeSection === "preview" ? (
                 <>
-                  <h3 className="font-semibold mb-1">Preview</h3>
-                  <div
-                    className="mjml-preview"
-                    dangerouslySetInnerHTML={{ __html: htmlContent }} // Render the converted HTML
-                  />
+                  {htmlContent ? (
+                    <>
+                      <h3 className="font-semibold mb-1">Preview</h3>
+                      <div
+                        className="mjml-preview"
+                        dangerouslySetInnerHTML={{ __html: htmlContent }}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <h3 className="font-semibold mb-1">Preview</h3>
+                    </>
+                  )}
                 </>
               ) : (
                 <>
                   <h3 className="font-semibold mb-1">Raw HTML</h3>
-                  <pre className="bg-gray-200 p-4 rounded-lg overflow-x-auto">
-                    {mjmlContent} {/* Show the raw MJML content */}
-                  </pre>
+                  <textarea
+                    value={mjmlContent}
+                    onChange={(e) => setMjmlContent(e.target.value)}
+                    placeholder="Edit your MJML code..."
+                    className="w-full h-48 p-2 border rounded-md mb-4"
+                  />
                 </>
               )}
             </div>
