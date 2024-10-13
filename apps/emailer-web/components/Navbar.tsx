@@ -16,7 +16,7 @@ export default function Navbar() {
           Pricing
         </Link>
         <SignedOut>
-          <SignInButton mode="modal">
+          <SignInButton mode="modal" fallbackRedirectUrl="/dashboard">
             <button className="bg-[#27C08D] hover:bg-[#27C08D]/90 text-white py-2 px-3 rounded-md">
               Log in
             </button>

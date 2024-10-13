@@ -6,6 +6,7 @@ import {
   IconDownload,
   IconDeviceFloppy,
   IconHelp,
+  IconEyeQuestion,
 } from "@tabler/icons-react";
 import Sidebar from "@/components/dashboard/Sidebar";
 import axios from "axios";
@@ -16,6 +17,7 @@ let mjml2html: any = null; // Initialize mjml2html as null
 
 export default function Dashboard() {
   const { user } = useUser();
+  const [isLoading, setIsLoading] = useState(false);
   const [activeSection, setActiveSection] = useState("preview");
   const [topic, setTopic] = useState("");
   const [mjmlContent, setMjmlContent] = useState("");
@@ -39,8 +41,8 @@ export default function Dashboard() {
   };
 
   const createMJLMEmail = async () => {
+    setIsLoading(true);
     try {
-      // First, make the GET request to generate the email
       const response = await axios.get("http://127.0.0.1:8000/response", {
         params: {
           topic: topic,
@@ -56,6 +58,8 @@ export default function Dashboard() {
       await deductCredits(user.id, 20);
     } catch (err) {
       console.log("Error creating email:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -82,9 +86,38 @@ export default function Dashboard() {
           <div className="flex justify-end">
             <button
               onClick={createMJLMEmail}
-              className="bg-black text-white rounded-md px-3 py-2"
+              disabled={isLoading} // Disable the button when loading
+              className={`bg-black text-white rounded-md px-3 py-2 ${
+                isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
-              Generate Email
+              {isLoading ? (
+                <div className="flex items-center justify-center space-x-2">
+                  <svg
+                    className="animate-spin h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291a7.962 7.962 0 01-2-5.291H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  <span>Generating...</span>
+                </div>
+              ) : (
+                "Generate Email"
+              )}
             </button>
           </div>
         </div>
@@ -131,7 +164,7 @@ export default function Dashboard() {
             <div className="p-4">
               {activeSection === "preview" ? (
                 <>
-                  {htmlContent ? (
+                  {mjmlContent ? (
                     <>
                       <h3 className="font-semibold mb-1">Preview</h3>
                       <div
@@ -141,19 +174,42 @@ export default function Dashboard() {
                     </>
                   ) : (
                     <>
-                      <h3 className="font-semibold mb-1">Preview</h3>
+                      <div className="flex flex-col items-center justify-center">
+                        <IconEyeQuestion className="text-gray-400" size={70} />
+                        <h3 className="font-semibold text-2xl mb-1">Preview</h3>
+                        <p className="text-gray-400 text-sm">
+                          Waiting for the message to generate a preview.
+                        </p>
+                      </div>
                     </>
                   )}
                 </>
               ) : (
                 <>
-                  <h3 className="font-semibold mb-1">Raw HTML</h3>
-                  <textarea
-                    value={mjmlContent}
-                    onChange={(e) => setMjmlContent(e.target.value)}
-                    placeholder="Edit your MJML code..."
-                    className="w-full h-48 p-2 border rounded-md mb-4"
-                  />
+                  {mjmlContent ? (
+                    <>
+                      {" "}
+                      <h3 className="font-semibold mb-1">Raw HTML</h3>
+                      <textarea
+                        value={mjmlContent}
+                        onChange={(e) => setMjmlContent(e.target.value)}
+                        placeholder="Edit your MJML code..."
+                        className="w-full h-48 p-2 border rounded-md mb-4"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex flex-col items-center justify-center">
+                        <IconEyeQuestion className="text-gray-400" size={70} />
+                        <h3 className="font-semibold text-2xl mb-1">
+                          Raw HTML
+                        </h3>
+                        <p className="text-gray-400 text-sm">
+                          Generate an email to see the MJML code.
+                        </p>
+                      </div>
+                    </>
+                  )}
                 </>
               )}
             </div>

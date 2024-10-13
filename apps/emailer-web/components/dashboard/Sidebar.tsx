@@ -4,7 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import {
   IconMenu2,
   IconLogout,
-  IconMail,
+  IconMailPlus,
   IconUser,
   IconHelp,
   IconX,
@@ -78,14 +78,14 @@ export default function Sidebar() {
           </div>
           <div>
             {loading ? (
-              <Skeleton width={100} /> // Skeleton for name
+              <Skeleton width={100} />
             ) : (
               <h2 className="font-semibold">{userDetails?.name}</h2>
             )}
             {loading ? (
-              <Skeleton width={80} /> // Skeleton for credits
+              <Skeleton width={80} />
             ) : (
-              <p className="text-sm text-gray-500">
+              <p className="m-0 text-sm text-gray-500">
                 {userDetails?.credits_remaining} tokens
               </p>
             )}
@@ -95,19 +95,19 @@ export default function Sidebar() {
         <nav className="space-y-4">
           <a
             href="#"
-            className="flex items-center space-x-2 text-blue-600 font-medium"
+            className="flex items-center space-x-2 font-medium hover:bg-gray-200 p-2 rounded-md"
           >
-            <IconMail className="w-5 h-5" />
+            <IconMailPlus className="w-5 h-5" />
             <span>Create Template</span>
           </a>
-          <a href="#" className="flex items-center space-x-2 text-gray-600">
-            <IconMail className="w-5 h-5" />
+          {/* <a href="#" className="flex items-center space-x-2 text-gray-600">
+            <IconMailPlus className="w-5 h-5" />
             <span>Public Template Library</span>
           </a>
           <a href="#" className="flex items-center space-x-2 text-gray-600">
-            <IconMail className="w-5 h-5" />
+            <IconMailPlus className="w-5 h-5" />
             <span>Private Template Library</span>
-          </a>
+          </a> */}
         </nav>
         <div className="mt-auto pt-6">
           <a href="#" className="flex items-center space-x-2 text-gray-600">
