@@ -3,11 +3,18 @@
 import Script from "next/script";
 import { IconCheck } from "@tabler/icons-react";
 import axios from "axios";
+import { useUser, RedirectToSignIn } from "@clerk/nextjs";
 
 export default function Pricing() {
-  const createOrder = async () => {
-    console.log("fuck");
+  const user_id = localStorage.getItem("user_id");
+  const { isSignedIn } = useUser();
+  const handleGetStartedClick = () => {
+    if (!isSignedIn) {
+      <RedirectToSignIn />;
+    }
+  };
 
+  const createOrder = async () => {
     const res = await axios.post("/api/payments/createOrder", {
       amount: 800 * 100,
     });
@@ -15,23 +22,21 @@ export default function Pricing() {
     const data = res.data;
 
     const paymentData = {
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      key: process.env.RAZORPAY_SECRET_KEY as string,
       order_id: data.id,
 
       handler: async function (response: any) {
         // verify payment
-        const res = await fetch("/api/payments/verifyOrder", {
-          method: "POST",
-          body: JSON.stringify({
-            orderId: response.razorpay_order_id,
-            razorpayPaymentId: response.razorpay_payment_id,
-            razorpaySignature: response.razorpay_signature,
-          }),
+        const res = await axios.post("/api/payments/verifyOrder", {
+          orderId: response.razorpay_order_id,
+          razorpayPaymentId: response.razorpay_payment_id,
+          razorpaySignature: response.razorpay_signature,
+          user_id: user_id,
         });
-        const data = await res.json();
+
+        const data = res.data;
         console.log(data);
         if (data.isOk) {
-          // do whatever page transition you want here as payment was successful
           alert("Payment successful");
         } else {
           alert("Payment failed");
@@ -126,6 +131,7 @@ export default function Pricing() {
                   Pay for what you use
                 </p>
               </div>
+
               <button className="w-full text-xl font-bold py-2 mt-6 rounded-md bg-[#27C08D] hover:bg-[#27C08D]/90 text-white">
                 Get Started
               </button>

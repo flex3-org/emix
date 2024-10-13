@@ -32,6 +32,7 @@ export default function Sidebar() {
         const response = await fetch(`/api/user/${user.id}`);
         const data = await response.json();
         setUserDetails(data);
+        localStorage.setItem("user_id", data?.id);
       }
       setLoading(false);
     };
@@ -122,7 +123,12 @@ export default function Sidebar() {
             <span>Account</span>
           </a>
           <SignOutButton>
-            <button className="flex items-center justify-center gap-3 px-3 py-2 rounded-md bg-gray-400 w-full mt-4">
+            <button
+              className="flex items-center justify-center gap-3 px-3 py-2 rounded-md bg-gray-400 w-full mt-4"
+              onClick={() => {
+                localStorage.clear();
+              }}
+            >
               Logout <IconLogout className="w-4 h-4 mr-2" />
             </button>
           </SignOutButton>
