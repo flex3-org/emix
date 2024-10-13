@@ -54,6 +54,11 @@ export async function POST(request: NextRequest) {
       [updatedCredits, user_id]
     );
 
+    await client.query(
+      "UPDATE user_subscriptions SET subscription_plan = $1 WHERE user_id = $2",
+      ["basic", user_id]
+    );
+
     // Optionally, log the transaction in a payment history table
     await client.query(
       "INSERT INTO user_payments (user_id, payment_amount, credits_purchased, payment_provider, payment_id, payment_status) VALUES ($1, $2, $3, $4, $5, $6)",
