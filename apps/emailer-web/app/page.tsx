@@ -1,7 +1,7 @@
-import { Benefits } from "@/components/Benefits";
-import Footer from "@/components/Footer";
-import HowItWorks from "@/components/HowItWorks";
-import Navbar from "@/components/Navbar";
+import { Benefits } from "@/components/Home/Benefits";
+import Footer from "@/components/Home/Footer";
+import Navbar from "@/components/Home/Navbar";
+import Pricing from "@/components/Home/Pricing";
 
 export default function Home() {
   return (
@@ -56,68 +56,8 @@ export default function Home() {
             </div>
           </div>
         </section>
-
         <Benefits />
-
-        <section id="pricing" className="py-20 px-6">
-          <div className="max-w-5xl mx-auto space-y-12">
-            <h2 className="text-3xl font-bold text-center">Pricing</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white p-8 rounded-lg shadow">
-                <h3 className="text-2xl font-semibold mb-4">Pay As You Go</h3>
-                <p className="text-3xl font-bold mb-4">
-                  $0.99{" "}
-                  <span className="text-base font-normal text-muted-foreground">
-                    / template
-                  </span>
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center space-x-2">
-                    <CheckIcon className="text-[#27C08D]" />
-                    <span>Generate MJML templates on demand</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckIcon className="text-[#27C08D]" />
-                    <span>Export to HTML or MJML</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckIcon className="text-[#27C08D]" />
-                    <span>Basic customization options</span>
-                  </li>
-                </ul>
-                <button className="w-full py-2 rounded-md bg-[#27C08D] hover:bg-[#27C08D]/90 text-white">
-                  Get Started
-                </button>
-              </div>
-              <div className="bg-white p-8 rounded-lg shadow border-2 border-[#27C08D]">
-                <h3 className="text-2xl font-semibold mb-4">Unlimited</h3>
-                <p className="text-3xl font-bold mb-4">
-                  $49{" "}
-                  <span className="text-base font-normal text-muted-foreground">
-                    / month
-                  </span>
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center space-x-2">
-                    <CheckIcon className="text-[#27C08D]" />
-                    <span>Unlimited MJML template generation</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckIcon className="text-[#27C08D]" />
-                    <span>Advanced customization options</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckIcon className="text-[#27C08D]" />
-                    <span>Team collaboration features</span>
-                  </li>
-                </ul>
-                <button className="w-full py-2 rounded-md bg-[#27C08D] hover:bg-[#27C08D]/90 text-white">
-                  Sign Up
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Pricing />
       </main>
       <Footer />
     </div>
