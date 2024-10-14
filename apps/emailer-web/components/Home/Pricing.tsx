@@ -140,9 +140,8 @@ export default function Pricing() {
                 Pay for what you use
               </p>
             </div>
-
-            <button className="w-full text-xl font-bold py-2 mt-6 rounded-md bg-[#27C08D] hover:bg-[#27C08D]/90 text-white">
-              Get Started
+            <button className="w-full text-xl font-bold py-2 mt-6 rounded-md bg-[#6ae2ba] hover:bg-[#27C08D]/90 text-white">
+              Coming Soon
             </button>
           </div>
         </div>

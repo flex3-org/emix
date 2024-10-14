@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import {
   IconCopy,
   IconDownload,
@@ -12,11 +13,14 @@ import Sidebar from "@/components/dashboard/Sidebar";
 import axios from "axios";
 import { useUser } from "@clerk/nextjs";
 import { deductCredits } from "../actions/deduct-credits";
+import { UserDetails } from "../types/types";
 
 let mjml2html: any = null; // Initialize mjml2html as null
 
 export default function Dashboard() {
   const { user } = useUser();
+  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
+  const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [activeSection, setActiveSection] = useState("preview");
   const [topic, setTopic] = useState("");
@@ -41,6 +45,11 @@ export default function Dashboard() {
   };
 
   const createMJLMEmail = async () => {
+    if (userDetails?.credits_remaining === 0) {
+      toast.error("You are out of credits, please purchase credits!");
+      return;
+    }
+
     setIsLoading(true);
     try {
       const response = await axios.get("http://127.0.0.1:8000/response", {
@@ -49,7 +58,6 @@ export default function Dashboard() {
         },
       });
 
-      // Extract MJML code from the response
       const mjmlCode = response.data.code;
       setMjmlContent(mjmlCode);
       updateHtmlContent(mjmlCode);
@@ -57,22 +65,36 @@ export default function Dashboard() {
       //@ts-ignore
       await deductCredits(user.id, 20);
     } catch (err) {
+      toast.error("Some internal error occured try again.");
       console.log("Error creating email:", err);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Convert MJML to HTML in real time
   useEffect(() => {
     if (mjmlContent && mjml2html) {
       updateHtmlContent(mjmlContent);
     }
   }, [mjmlContent]);
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (user?.id) {
+        const response = await fetch(`/api/user/${user.id}`);
+        const data = await response.json();
+        setUserDetails(data);
+        localStorage.setItem("user_id", data?.id);
+      }
+      setLoading(false);
+    };
+
+    fetchUserData();
+  }, [user?.id]);
+
   return (
     <div className="flex flex-col h-screen bg-gray-100 lg:flex-row">
-      <Sidebar />
+      <Sidebar userDetails={userDetails || null} loading={loading} />
       <main className="flex-1 p-4 lg:p-10 overflow-auto">
         <h1 className="text-3xl font-bold mb-6 hidden lg:block">
           Create Template
@@ -188,7 +210,6 @@ export default function Dashboard() {
                 <>
                   {mjmlContent ? (
                     <>
-                      {" "}
                       <h3 className="font-semibold mb-1">Raw HTML</h3>
                       <textarea
                         value={mjmlContent}

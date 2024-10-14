@@ -1,6 +1,5 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import {
   IconMenu2,
   IconLogout,
@@ -9,37 +8,19 @@ import {
   IconHelp,
   IconX,
 } from "@tabler/icons-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { SignOutButton } from "@clerk/nextjs";
 import Image from "next/image";
+import { UserDetails } from "@/app/types/types";
 import Skeleton from "react-loading-skeleton";
 
-interface UserDetails {
-  name: string;
-  profile_image_url: string;
-  credits_remaining: number;
+interface SidebarProps {
+  userDetails?: UserDetails | null;
+  loading: boolean;
 }
 
-export default function Sidebar() {
+export default function Sidebar({ userDetails, loading }: SidebarProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
-  const [loading, setLoading] = useState(true);
-  const { user } = useUser();
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (user?.id) {
-        const response = await fetch(`/api/user/${user.id}`);
-        const data = await response.json();
-        setUserDetails(data);
-        localStorage.setItem("user_id", data?.id);
-      }
-      setLoading(false);
-    };
-
-    fetchUserData();
-  }, [user?.id]);
-
   return (
     <>
       <header className="lg:hidden flex justify-between items-center p-4 bg-white shadow-md">
