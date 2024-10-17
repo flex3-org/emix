@@ -3,17 +3,15 @@
 import Script from "next/script";
 import { IconCheck } from "@tabler/icons-react";
 import axios from "axios";
+import toast from "react-hot-toast";
 import { useUser, RedirectToSignIn } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 
 export default function Pricing() {
   const { isSignedIn } = useUser();
-  console.log(isSignedIn);
-
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    // This code will run only on the client side
     const id = localStorage.getItem("user_id");
     setUserId(id);
   }, []);
@@ -25,7 +23,7 @@ export default function Pricing() {
     }
 
     const res = await axios.post("/api/payments/createOrder", {
-      amount: 800 * 100,
+      amount: 800 * 100, // amount in paise
     });
 
     const data = res.data;
@@ -35,23 +33,23 @@ export default function Pricing() {
       order_id: data.id,
 
       handler: async function (response: any) {
-        // verify payment
-        const res = await axios.post("/api/payments/verifyOrder", {
-          orderId: response.razorpay_order_id,
-          razorpayPaymentId: response.razorpay_payment_id,
-          razorpaySignature: response.razorpay_signature,
-          user_id: userId,
-        });
-
-        const data = res.data;
-        console.log(data);
-        if (data.isOk) {
-          alert("Payment successful");
-        } else {
-          alert("Payment failed");
-        }
+        // Use toast.promise to handle the verification process
+        await toast.promise(
+          axios.post("/api/payments/verifyOrder", {
+            orderId: response.razorpay_order_id,
+            razorpayPaymentId: response.razorpay_payment_id,
+            razorpaySignature: response.razorpay_signature,
+            user_id: userId,
+          }),
+          {
+            loading: "Verifying payment...",
+            success: <b>Payment successful!</b>,
+            error: <b>Payment verification failed. Please try again.</b>,
+          }
+        );
       },
     };
+
     const payment = new (window as any).Razorpay(paymentData);
     payment.open();
   };
@@ -105,7 +103,6 @@ export default function Pricing() {
               Get Started
             </button>
           </div>
-          {/* Pricing Plan 2 */}
           <div className="flex flex-col justify-center items-center bg-white md:p-8 p-6 rounded-lg shadow">
             <div className="flex items-center gap-3">
               <h3 className="md:text-2xl text-md font-bold">
