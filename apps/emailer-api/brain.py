@@ -42,4 +42,12 @@ def get_response(file_content, user_input):
     prompt = f"{file_content} Edit the given MJML template for the following usecase: {user_input}"
 
     response = chat_session.send_message(prompt)
-    return response.text
+    # print(response.text)
+
+    try:
+        output = response.text
+    except Exception:
+        output = response.to_dict(
+        )['candidates'][0]['content']['parts'][0]['text']
+    # return response.text
+    return output
