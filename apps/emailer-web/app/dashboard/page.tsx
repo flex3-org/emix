@@ -45,6 +45,10 @@ export default function Dashboard() {
   };
 
   const createMJLMEmail = async () => {
+    if (userDetails == null) {
+      toast.error("Could not fetch user details. Please try again later.");
+      return;
+    }
     if (userDetails?.credits_remaining === 0) {
       toast.error("You are out of credits, please purchase credits!");
       return;
