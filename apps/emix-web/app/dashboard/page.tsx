@@ -12,12 +12,14 @@ import {
 import Sidebar from "@/components/dashboard/Sidebar";
 import axios from "axios";
 import { useUser } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 import { deductCredits } from "../actions/deduct-credits";
 import { UserDetails } from "../types/types";
 
 let mjml2html: any = null; // Initialize mjml2html as null
 
 export default function Dashboard() {
+  const { getToken } = useAuth();
   const { user } = useUser();
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [loading, setLoading] = useState(true);
@@ -56,9 +58,13 @@ export default function Dashboard() {
 
     setIsLoading(true);
     try {
+      const token = await getToken();
       const response = await axios.get("http://127.0.0.1:8000/response", {
         params: {
           topic: topic,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
       });
 
