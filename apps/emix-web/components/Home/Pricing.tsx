@@ -6,9 +6,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useUser, RedirectToSignIn } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Pricing() {
+  const router = useRouter();
   const { isSignedIn } = useUser();
+
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -47,6 +50,7 @@ export default function Pricing() {
             error: <b>Payment verification failed. Please try again.</b>,
           }
         );
+        router.push("/dashboard", { scroll: false });
       },
     };
 
