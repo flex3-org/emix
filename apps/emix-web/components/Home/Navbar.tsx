@@ -16,7 +16,11 @@ export default function Navbar() {
           Pricing
         </Link>
         <SignedOut>
-          <SignInButton mode="modal" fallbackRedirectUrl="/dashboard">
+          <SignInButton
+            mode="modal"
+            fallbackRedirectUrl="/dashboard"
+            signUpFallbackRedirectUrl="/dashboard"
+          >
             <button className="bg-[#27C08D] hover:bg-[#27C08D]/90 text-white py-2 px-3 rounded-md">
               Log in
             </button>
@@ -28,7 +32,6 @@ export default function Navbar() {
         >
           <div className="flex gap-2">
             <SignedIn>
-              {/* <UserButton /> */}
               <Link
                 href="/dashboard"
                 className="flex bg-[#27C08D] hover:bg-[#27C08D]/90 text-white py-2 px-3 rounded-md"

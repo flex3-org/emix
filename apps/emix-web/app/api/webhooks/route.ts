@@ -54,11 +54,6 @@ export async function POST(req: Request) {
     const { id, email_addresses, first_name, last_name, image_url } =
       event.data;
 
-    // Perform any database updates or other actions based on the webhook data
-    console.log(
-      `User created: ID=${id}, Email=${email_addresses?.[0]?.email_address}`
-    );
-
     // Store user data in the database
     const client = await pool.connect();
     try {
@@ -77,7 +72,6 @@ export async function POST(req: Request) {
         ])
       ).rows[0];
 
-      // Insert default subscription plan and credits
       await client.query(
         `
         INSERT INTO user_subscriptions (user_id, subscription_plan, status)
@@ -102,7 +96,5 @@ export async function POST(req: Request) {
       client.release();
     }
   }
-
-  // Return a success response
   return new Response("Webhook received successfully", { status: 200 });
 }
