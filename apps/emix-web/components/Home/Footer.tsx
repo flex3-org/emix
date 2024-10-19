@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center">
         <div className="flex items-center space-x-2 mb-4 md:mb-0">
           <Image src="/logo.svg" alt="Logo" width={32} height={32} />
-          <span className="text-xl font-bold">MJML AI Generator</span>
+          <span className="text-xl font-bold">Emix</span>
         </div>
         <nav className="flex space-x-4">
           <Link
@@ -23,7 +23,7 @@ export default function Footer() {
             Privacy Policy
           </Link>
           <Link
-            href="#"
+            href="mailto:kirtanmchandak5@gmail.com"
             className="text-sm text-muted-foreground hover:underline"
           >
             Contact

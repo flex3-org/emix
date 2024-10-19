@@ -6,10 +6,13 @@ export default function Navbar() {
   return (
     <header className="flex items-center justify-between p-6">
       <div className="flex items-center space-x-2">
-        <span className="text-xl font-bold">MJML AI Generator</span>
+        <span className="text-xl font-bold">Emix</span>
       </div>
       <nav className="flex items-center space-x-4">
-        <Link href="#features" className="text-sm font-medium hover:underline">
+        <Link
+          href="#features"
+          className="hidden md:block text-sm font-medium hover:underline"
+        >
           Features
         </Link>
         <Link href="#pricing" className="text-sm font-medium hover:underline">

@@ -6,6 +6,8 @@ import {
   IconSignature,
   IconTableColumn,
 } from "@tabler/icons-react";
+import quickEmail from "../../assets/quick-email-2.png";
+import Image from "next/image";
 
 export function Benefits() {
   return (
@@ -13,7 +15,7 @@ export function Benefits() {
       <div className="py-20">
         <p className="text-center font-bold text-3xl">Benefits</p>
         <div className="mt-6">
-          <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem]">
+          <BentoGrid className="max-w-4xl mx-auto  md:auto-rows-[20rem]">
             {items.map((item, i) => (
               <BentoGridItem
                 key={i}
@@ -35,10 +37,11 @@ const Skeleton = () => (
 );
 const items = [
   {
-    title: "The Dawn of Innovation",
-    description: "Explore the birth of groundbreaking ideas and inventions.",
-    header: <Skeleton />,
-    className: "md:col-span-2",
+    title: "Quick Email Setup",
+    description:
+      "Set up your email campaigns fast without any coding. Our AI takes your input and turns it into ready-to-use HTML emails so you can focus on crafting your message.",
+    header: <Image src={quickEmail} alt="Innovation" className="" />,
+    className: "md:col-span-2 border-gray-200 border-[1px]",
     icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
   },
   {

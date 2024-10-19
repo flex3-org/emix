@@ -2,63 +2,83 @@ import { Benefits } from "@/components/Home/Benefits";
 import Footer from "@/components/Home/Footer";
 import Navbar from "@/components/Home/Navbar";
 import Pricing from "@/components/Home/Pricing";
+import Image from "next/image";
+import heroImg from "../assets/hero-img.png";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-grow">
-        <section className="pt-20 px-6">
+        <section className="md:pt-16 pt-8 px-6 bg-white">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h1 className="text-4xl text-center font-bold tracking-tight sm:text-6xl">
+            {/* Text content */}
+            <div className="space-y-6 text-center md:text-left">
+              <h1 className="text-4xl text-center font-bold tracking-tight sm:text-5xl md:text-6xl">
                 Easily Generate <br />
                 <span className="text-[#27C08D]">Email MJML Code</span>
               </h1>
-              <p className="text-md text-center text-muted-foreground">
+              <p className="text-base md:text-lg text-center text-muted-foreground">
                 Struggling with email MJML code? Our tool handles it for you.
-                Describe what you want, and watch asAI instantly generates the
+                Describe what you want, and watch as AI instantly generates the
                 MJML. Save time and focus on your content, not the code.
               </p>
-              <div className="flex flex-col items-center">
-                <ul className="space-y-2">
+              <div className="flex flex-col items-center justify-center">
+                <ul className=" space-y-2">
                   <li className="flex items-center space-x-2">
                     <CheckIcon className="text-[#27C08D]" />
-                    <span>AI generates email HTML code in seconds</span>
+                    <span className="text-sm md:text-base">
+                      AI generates email MJML code in seconds
+                    </span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckIcon className="text-[#27C08D]" />
-                    <span>No coding experience required</span>
+                    <span className="text-sm md:text-base">
+                      No coding experience required
+                    </span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckIcon className="text-[#27C08D]" />
-                    <span>Customize your email with ease</span>
+                    <span className="text-sm md:text-base">
+                      Customize your email with ease
+                    </span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckIcon className="text-[#27C08D]" />
-                    <span>Export your MJML code with one click</span>
+                    <span className="text-sm md:text-base">
+                      Export your MJML code with one click
+                    </span>
                   </li>
                 </ul>
 
-                <button className="bg-[#27C08D] hover:bg-[#27C08D]/90 text-white mt-6 text-xl py-3 px-4 rounded-md">
-                  Build Easlily Now
-                </button>
+                {/* Call to action button */}
+                <div className="mt-6">
+                  <button className="bg-[#27C08D] hover:bg-[#27C08D]/90 text-white text-xl py-3 px-6 rounded-md">
+                    Build Easily Now
+                  </button>
+                </div>
               </div>
             </div>
-            <div className="bg-gray-100 p-8 rounded-lg">
-              <input
-                className="mb-4"
-                placeholder="Your email template idea..."
+
+            {/* Image */}
+            <div className="flex justify-center">
+              <Image
+                src={heroImg}
+                height={200}
+                width={390}
+                alt="hero-img"
+                className="h-auto object-cover"
               />
-              <button className="w-full bg-[#27C08D] hover:bg-[#27C08D]/90 text-white">
-                Generate Template
-              </button>
             </div>
           </div>
         </section>
+
+        {/* Benefits and Pricing sections */}
         <Benefits />
         <Pricing />
       </main>
+
+      {/* Footer */}
       <Footer />
     </div>
   );
