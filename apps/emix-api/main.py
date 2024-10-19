@@ -70,18 +70,31 @@ def get_here(user_input):
 async def get_email(topic: str, token: dict = Depends(check_jwt)):
     # JWT validation is done in the check_jwt function
     # If the token is invalid, this endpoint won't be reached
-    
+
+    print(f"Received request with topic: {topic}")
+    print(f"Validated JWT token: {token}")
+
+    # Get the response based on the topic
     response = get_here(topic)
-    
+    print(f"Received response from get_here: {response}")
+
     # Handle cases where response may not contain code
     if "```" not in response:
+        print(f"No code block found in the response for topic: {topic}")
         return JSONResponse(content={"error": "No code block found in response."}, status_code=400)
     
+    # Extracting code block
     start = response.find("```") + 3
     end = response.rfind("```")
     code = response[start:end]
     instructions = response[end + 3:] if end + 3 < len(response) else ""  # Safeguard against out-of-bounds
 
+    # Debugging extracted code and instructions
+    print(f"Extracted code: {code}")
+    print(f"Extracted instructions: {instructions}")
+
+    # Construct the JSON response
     content = {"code": code, "instructions": instructions}
-    print(code)
+    
+    print(f"Returning response for topic: {topic}")
     return JSONResponse(content=content, media_type="application/json")

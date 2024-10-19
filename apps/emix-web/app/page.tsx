@@ -16,7 +16,7 @@ export default function Home() {
             <div className="space-y-6 text-center md:text-left">
               <h1 className="text-4xl text-center font-bold tracking-tight sm:text-5xl md:text-6xl">
                 Easily Generate <br />
-                <span className="text-[#27C08D]">Email MJML Code</span>
+                <span className="text-[#48426D]">Email MJML Code</span>
               </h1>
               <p className="text-base md:text-lg text-center text-muted-foreground">
                 Struggling with email MJML code? Our tool handles it for you.
@@ -26,25 +26,25 @@ export default function Home() {
               <div className="flex flex-col items-center justify-center">
                 <ul className=" space-y-2">
                   <li className="flex items-center space-x-2">
-                    <CheckIcon className="text-[#27C08D]" />
+                    <CheckIcon className="text-[#312C51]" />
                     <span className="text-sm md:text-base">
                       AI generates email MJML code in seconds
                     </span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <CheckIcon className="text-[#27C08D]" />
+                    <CheckIcon className="text-[#312C51]" />
                     <span className="text-sm md:text-base">
                       No coding experience required
                     </span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <CheckIcon className="text-[#27C08D]" />
+                    <CheckIcon className="text-[#312C51]" />
                     <span className="text-sm md:text-base">
                       Customize your email with ease
                     </span>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <CheckIcon className="text-[#27C08D]" />
+                    <CheckIcon className="text-[#312C51]" />
                     <span className="text-sm md:text-base">
                       Export your MJML code with one click
                     </span>
@@ -53,7 +53,7 @@ export default function Home() {
 
                 {/* Call to action button */}
                 <div className="mt-6">
-                  <button className="bg-[#27C08D] hover:bg-[#27C08D]/90 text-white text-xl py-3 px-6 rounded-md">
+                  <button className="bg-[#312C51] hover:bg-[#312C51]/90 text-xl text-white py-3 px-6 rounded-md">
                     Build Easily Now
                   </button>
                 </div>

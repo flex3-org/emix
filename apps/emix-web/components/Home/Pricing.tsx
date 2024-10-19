@@ -77,7 +77,7 @@ export default function Pricing() {
             </div>
             <ul className="space-y-2 py-6">
               <li className="flex gap-2">
-                <IconCheck className="text-[#27C08D] w-14" />
+                <IconCheck className="text-[#312C51] w-14" />
                 <p>
                   <span className="font-bold">Receive 3000 Tokens:</span> Get
                   3000 tokens to use for generating email MJML-use them at your
@@ -85,7 +85,7 @@ export default function Pricing() {
                 </p>
               </li>
               <li className="flex gap-2">
-                <IconCheck className="text-[#27C08D] w-14" />
+                <IconCheck className="text-[#312C51] w-14" />
                 <p>
                   <span className="font-bold">No Subscription Required: </span>
                   Pay once, and use your tokens without any monthly fees or
@@ -102,7 +102,7 @@ export default function Pricing() {
             </div>
             <button
               onClick={createOrder}
-              className="w-full text-xl font-bold py-2 mt-6 rounded-md bg-[#27C08D] hover:bg-[#27C08D]/90 text-white"
+              className="w-full text-xl font-bold py-2 mt-6 rounded-md bg-[#312C51] hover:bg-[#312C51]/90 text-white"
             >
               Get Started
             </button>
@@ -112,13 +112,13 @@ export default function Pricing() {
               <h3 className="md:text-2xl text-md font-bold">
                 Unlimited Access
               </h3>
-              <p className="bg-blue-100 text-blue-500 p-2 rounded-md font-bold md:text-2xl text-lg text-nowrap">
+              <p className="bg-[#F0C38E] bg-opacity-15 text-[#F0C38E] p-2 rounded-md font-bold md:text-2xl text-lg text-nowrap">
                 Best Value
               </p>
             </div>
             <ul className="space-y-2 py-6">
               <li className="flex gap-2">
-                <IconCheck className="text-[#27C08D] w-14" />
+                <IconCheck className="text-[#312C51] w-14" />
                 <p>
                   <span className="font-bold">Unlimited Generation: </span>
                   Create as many email HTML files as you need without any
@@ -126,7 +126,7 @@ export default function Pricing() {
                 </p>
               </li>
               <li className="flex gap-2">
-                <IconCheck className="text-[#27C08D] w-14" />
+                <IconCheck className="text-[#312C51] w-14" />
                 <p>
                   <span className="font-bold">One-Time Purchase: </span>
                   ₹1500 to generate beautiful unlimited MJML emails for a month
@@ -141,7 +141,7 @@ export default function Pricing() {
                 Pay for what you use
               </p>
             </div>
-            <button className="w-full text-xl font-bold py-2 mt-6 rounded-md bg-[#6ae2ba] hover:bg-[#27C08D]/90 text-white">
+            <button className="w-full text-xl font-bold py-2 mt-6 rounded-md bg-[#48426D] hover:bg-[#312C51]/90 text-white">
               Coming Soon
             </button>
           </div>

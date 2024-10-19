@@ -7,6 +7,7 @@ import {
   IconTableColumn,
 } from "@tabler/icons-react";
 import quickEmail from "../../assets/quick-email-2.png";
+import noCoding from "../../assets/no-coding.jpg";
 import Image from "next/image";
 
 export function Benefits() {
@@ -45,17 +46,24 @@ const items = [
     icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Digital Revolution",
-    description: "Dive into the transformative power of technology.",
-    header: <Skeleton />,
-    className: "md:col-span-1",
+    title: "No coding skills needed",
+    description:
+      "Users can create professional email designs without any technical knowledge.",
+    header: (
+      <Image
+        src={noCoding}
+        alt="Innovation"
+        className="h-44 object-cover rounded-md"
+      />
+    ),
+    className: "md:col-span-1 border-gray-200 border-[1px]",
     icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "The Art of Design",
     description: "Discover the beauty of thoughtful and functional design.",
     header: <Skeleton />,
-    className: "md:col-span-1",
+    className: "md:col-span-1 border-gray-200 border-[1px]",
     icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
   },
   {
@@ -63,7 +71,7 @@ const items = [
     description:
       "Understand the impact of effective communication in our lives.",
     header: <Skeleton />,
-    className: "md:col-span-2",
+    className: "md:col-span-2 border-gray-200 border-[1px]",
     icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
   },
 ];

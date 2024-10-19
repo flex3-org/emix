@@ -24,7 +24,7 @@ export default function Navbar() {
             fallbackRedirectUrl="/dashboard"
             signUpFallbackRedirectUrl="/dashboard"
           >
-            <button className="bg-[#27C08D] hover:bg-[#27C08D]/90 text-white py-2 px-3 rounded-md">
+            <button className="bg-[#312C51] text-white py-2 px-3 rounded-md">
               Log in
             </button>
           </SignInButton>
@@ -37,7 +37,7 @@ export default function Navbar() {
             <SignedIn>
               <Link
                 href="/dashboard"
-                className="flex bg-[#27C08D] hover:bg-[#27C08D]/90 text-white py-2 px-3 rounded-md"
+                className="flex bg-[#312C51] text-white py-2 px-3 rounded-md"
               >
                 Dashboard <IconCaretRightFilled />
               </Link>

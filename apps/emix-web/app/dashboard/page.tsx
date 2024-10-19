@@ -6,7 +6,6 @@ import {
   IconCopy,
   IconDownload,
   IconDeviceFloppy,
-  IconHelp,
   IconEyeQuestion,
 } from "@tabler/icons-react";
 import Sidebar from "@/components/dashboard/Sidebar";
@@ -59,14 +58,17 @@ export default function Dashboard() {
     setIsLoading(true);
     try {
       const token = await getToken();
-      const response = await axios.get("http://127.0.0.1:8000/response", {
-        params: {
-          topic: topic,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        "https://emix-api-v3.lemondune-df7f0288.australiaeast.azurecontainerapps.io/response/",
+        {
+          params: {
+            topic: topic,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const mjmlCode = response.data.code;
       setMjmlContent(mjmlCode);
@@ -157,17 +159,14 @@ export default function Dashboard() {
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 space-y-4 lg:space-y-0">
             <h2 className="text-xl font-semibold">Generated Email</h2>
             <div className="flex flex-wrap items-center gap-2">
-              <button>
-                <IconHelp className="h-4 w-4" />
+              <button className="flex items-center gap-1 text-sm border-[1px] px-2 py-1 rounded-md border-gray-300">
+                Copy <IconCopy className="h-4 w-4" />
               </button>
-              <button>
-                <IconCopy className="h-4 w-4" />
+              <button className="flex items-center gap-1 text-sm border-[1px] px-2 py-1 rounded-md border-gray-300">
+                Download <IconDownload className="h-4 w-4" />
               </button>
-              <button>
-                <IconDownload className="h-4 w-4" />
-              </button>
-              <button>
-                <IconDeviceFloppy className="h-4 w-4" />
+              <button className="flex items-center gap-1 text-sm border-[1px] px-2 py-1 rounded-md border-gray-300">
+                Save <IconDeviceFloppy className="h-4 w-4" />
               </button>
             </div>
           </div>
@@ -188,7 +187,7 @@ export default function Dashboard() {
                   activeSection === "rawHtml" ? "bg-white" : ""
                 }`}
               >
-                Raw HTML
+                Raw MJML
               </button>
             </div>
 
