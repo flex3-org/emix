@@ -15,7 +15,7 @@ import { useAuth } from "@clerk/nextjs";
 import { deductCredits } from "../actions/deduct-credits";
 import { UserDetails } from "../types/types";
 
-let mjml2html: any = null; // Initialize mjml2html as null
+let mjml2html: any = null;
 
 export default function Dashboard() {
   const { getToken } = useAuth();
@@ -59,7 +59,7 @@ export default function Dashboard() {
     try {
       const token = await getToken();
       const response = await axios.get(
-        "https://emix-api-v3.lemondune-df7f0288.australiaeast.azurecontainerapps.io/response/",
+        process.env.NEXT_PUBLIC_BACKEND_URL || "",
         {
           params: {
             topic: topic,
@@ -92,13 +92,22 @@ export default function Dashboard() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      if (user?.id) {
-        const response = await fetch(`/api/user/${user.id}`);
-        const data = await response.json();
-        setUserDetails(data);
-        localStorage.setItem("user_id", data?.id);
+      setLoading(true);
+      try {
+        if (user?.id) {
+          const response = await fetch(`/api/user/${user.id}`);
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+          setUserDetails(data);
+          localStorage.setItem("user_id", data?.id);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchUserData();
@@ -111,7 +120,7 @@ export default function Dashboard() {
         <h1 className="text-3xl font-bold mb-6 hidden lg:block">
           Create Template
         </h1>
-        <div className="bg-white p-4 lg:p-6 rounded-lg shadow-sm mb-6">
+        <form className="bg-white p-4 lg:p-6 rounded-lg shadow-sm mb-6">
           <textarea
             onChange={(e) => setTopic(e.target.value)}
             placeholder="Ask emailer an email..."
@@ -124,6 +133,7 @@ export default function Dashboard() {
               className={`bg-black text-white rounded-md px-3 py-2 ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
+              type="submit"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center space-x-2">
@@ -154,7 +164,7 @@ export default function Dashboard() {
               )}
             </button>
           </div>
-        </div>
+        </form>
         <div className="bg-white p-4 lg:p-6 rounded-lg shadow-sm">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 space-y-4 lg:space-y-0">
             <h2 className="text-xl font-semibold">Generated Email</h2>
