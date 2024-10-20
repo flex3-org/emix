@@ -1,9 +1,11 @@
 import { Benefits } from "@/components/Home/Benefits";
+import { Highlight } from "@/components/ui/hero-highlight";
 import Footer from "@/components/Home/Footer";
 import Navbar from "@/components/Home/Navbar";
 import Pricing from "@/components/Home/Pricing";
 import Image from "next/image";
 import heroImg from "../assets/hero-img.png";
+import FAQ from "@/components/Home/FAQ";
 
 export default function Home() {
   return (
@@ -18,10 +20,13 @@ export default function Home() {
                 Easily Generate <br />
                 <span className="text-[#48426D]">Email MJML Code</span>
               </h1>
-              <p className="text-base md:text-lg text-center text-muted-foreground">
+              <p className="text-base md:text-md text-center font-medium text-muted-foreground">
                 Struggling with email MJML code? Our tool handles it for you.
-                Describe what you want, and watch as AI instantly generates the
-                MJML. Save time and focus on your content, not the code.
+                Describe what you want, and watch as{" "}
+                <Highlight className="">
+                  AI instantly generates the MJML.
+                </Highlight>{" "}
+                Save time and focus on your content, not the code.
               </p>
               <div className="flex flex-col items-center justify-center">
                 <ul className=" space-y-2">
@@ -76,6 +81,7 @@ export default function Home() {
         {/* Benefits and Pricing sections */}
         <Benefits />
         <Pricing />
+        <FAQ />
       </main>
 
       {/* Footer */}

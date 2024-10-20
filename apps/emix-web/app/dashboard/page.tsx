@@ -20,6 +20,7 @@ let mjml2html: any = null;
 export default function Dashboard() {
   const { getToken } = useAuth();
   const { user } = useUser();
+  const [copyText, setCopyText] = useState("Copy");
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -113,6 +114,30 @@ export default function Dashboard() {
     fetchUserData();
   }, [user?.id]);
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(mjmlContent).then(() => {
+      setCopyText("Copied");
+      setTimeout(() => {
+        setCopyText("Copy");
+      }, 2000); // Change back to "Copy" after 2 seconds
+    });
+  };
+
+  const handleDownload = () => {
+    const blob = new Blob([mjmlContent], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "mjml.txt";
+
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="flex flex-col h-screen bg-gray-100 lg:flex-row">
       <Sidebar userDetails={userDetails || null} loading={loading} />
@@ -169,13 +194,22 @@ export default function Dashboard() {
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 space-y-4 lg:space-y-0">
             <h2 className="text-xl font-semibold">Generated Email</h2>
             <div className="flex flex-wrap items-center gap-2">
-              <button className="flex items-center gap-1 text-sm border-[1px] px-2 py-1 rounded-md border-gray-300">
-                Copy <IconCopy className="h-4 w-4" />
+              <button
+                className="flex items-center gap-1 text-sm border-[1px] px-2 py-1 rounded-md border-gray-300"
+                onClick={handleCopy}
+              >
+                {copyText} <IconCopy className="h-4 w-4" />
               </button>
-              <button className="flex items-center gap-1 text-sm border-[1px] px-2 py-1 rounded-md border-gray-300">
+              <button
+                className="flex items-center gap-1 text-sm border-[1px] px-2 py-1 rounded-md border-gray-300"
+                onClick={handleDownload}
+              >
                 Download <IconDownload className="h-4 w-4" />
               </button>
-              <button className="flex items-center gap-1 text-sm border-[1px] px-2 py-1 rounded-md border-gray-300">
+              <button
+                disabled
+                className="flex items-center gap-1 text-sm border-[1px] px-2 py-1 rounded-md border-gray-300"
+              >
                 Save <IconDeviceFloppy className="h-4 w-4" />
               </button>
             </div>

@@ -65,7 +65,7 @@ export default function Pricing() {
         src="https://checkout.razorpay.com/v1/checkout.js"
       />
       <div className="max-w-5xl mx-auto space-y-12">
-        <h2 className="text-3xl font-bold text-center">Pricing</h2>
+        <h2 className="text-4xl font-bold text-center">Pricing</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Pricing Plan 1 */}
           <div className="flex flex-col justify-center items-center bg-white md:p-8 p-6 rounded-lg shadow">

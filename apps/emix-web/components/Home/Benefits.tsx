@@ -1,4 +1,4 @@
-import React from "react";
+import Image from "next/image";
 import { BentoGrid, BentoGridItem } from "../ui/bento-grid";
 import {
   IconClipboardCopy,
@@ -8,13 +8,14 @@ import {
 } from "@tabler/icons-react";
 import quickEmail from "../../assets/quick-email-2.png";
 import noCoding from "../../assets/no-coding.jpg";
-import Image from "next/image";
+import quickExport from "../../assets/quick-export.png";
+import one from "../../assets/1.png";
 
 export function Benefits() {
   return (
     <>
       <div className="py-20">
-        <p className="text-center font-bold text-3xl">Benefits</p>
+        <p className="text-center font-bold text-4xl">Benefits</p>
         <div className="mt-6">
           <BentoGrid className="max-w-4xl mx-auto  md:auto-rows-[20rem]">
             {items.map((item, i) => (
@@ -60,17 +61,29 @@ const items = [
     icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Art of Design",
-    description: "Discover the beauty of thoughtful and functional design.",
-    header: <Skeleton />,
+    title: "One-click export",
+    description: "Seamlessly export your MJML code.",
+    header: (
+      <Image
+        src={quickExport}
+        alt="Innovation"
+        className="h-44 object-fill rounded-md"
+      />
+    ),
     className: "md:col-span-1 border-gray-200 border-[1px]",
     icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Power of Communication",
+    title: "Easy customization",
     description:
-      "Understand the impact of effective communication in our lives.",
-    header: <Skeleton />,
+      "Modify and personalize emails with ease, even without coding skills.",
+    header: (
+      <Image
+        src={one}
+        alt="Innovation"
+        className="h-44 object-fill rounded-md"
+      />
+    ),
     className: "md:col-span-2 border-gray-200 border-[1px]",
     icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
   },
