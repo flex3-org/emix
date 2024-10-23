@@ -10,6 +10,8 @@ import quickEmail from "../../assets/quick-email-2.png";
 import noCoding from "../../assets/no-coding.jpg";
 import quickExport from "../../assets/quick-export.png";
 import one from "../../assets/1.png";
+import oneclick from "../../assets/oneclick.webp";
+import waree from "../../assets/Screenshot 2024-10-23 134724.png";
 
 export function Benefits() {
   return (
@@ -65,9 +67,11 @@ const items = [
     description: "Seamlessly export your MJML code.",
     header: (
       <Image
-        src={quickExport}
+        width={300}
+        height={100}
+        src="https://i.redd.it/1r5vunzh3tz91.jpg"
         alt="Innovation"
-        className="h-44 object-fill rounded-md"
+        className="h-44 object-contain rounded-md"
       />
     ),
     className: "md:col-span-1 border-gray-200 border-[1px]",
@@ -79,9 +83,9 @@ const items = [
       "Modify and personalize emails with ease, even without coding skills.",
     header: (
       <Image
-        src={one}
+        src={waree}
         alt="Innovation"
-        className="h-44 object-fill rounded-md"
+        className="h-44 object-contain rounded-md"
       />
     ),
     className: "md:col-span-2 border-gray-200 border-[1px]",

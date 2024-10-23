@@ -12,7 +12,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Emailer",
+  title: "Emix",
   description: "Easily Generate Email MJML Code",
 };
 
