@@ -59,7 +59,7 @@ export default function Pricing() {
   };
 
   return (
-    <section id="pricing" className="pb-20 px-6">
+    <section id="pricing" className="py-20 px-6">
       <Script
         type="text/javascript"
         src="https://checkout.razorpay.com/v1/checkout.js"

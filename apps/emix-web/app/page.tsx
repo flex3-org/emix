@@ -6,6 +6,17 @@ import Pricing from "@/components/Home/Pricing";
 import Image from "next/image";
 import heroImg from "../assets/hero-img.png";
 import FAQ from "@/components/Home/FAQ";
+import { MediaPlayer, MediaProvider } from "@vidstack/react";
+import {
+  defaultLayoutIcons,
+  DefaultVideoLayout,
+} from "@vidstack/react/player/layouts/default";
+import {
+  PlyrLayout,
+  plyrLayoutIcons,
+} from "@vidstack/react/player/layouts/plyr";
+import "@vidstack/react/player/styles/base.css";
+import "@vidstack/react/player/styles/plyr/theme.css";
 
 export default function Home() {
   return (
@@ -80,6 +91,20 @@ export default function Home() {
 
         {/* Benefits and Pricing sections */}
         <Benefits />
+
+        <div className="flex items-center justify-center">
+          <div className="w-3/4">
+            <MediaPlayer
+              title=""
+              src="https://youtu.be/e7JVH3nYgpY"
+              playsInline
+            >
+              <MediaProvider />
+              <PlyrLayout icons={plyrLayoutIcons} />
+            </MediaPlayer>
+          </div>
+        </div>
+
         <Pricing />
         <FAQ />
       </main>
