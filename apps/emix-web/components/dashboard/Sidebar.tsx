@@ -17,9 +17,14 @@ import Skeleton from "react-loading-skeleton";
 interface SidebarProps {
   userDetails?: UserDetails | null;
   loading: boolean;
+  onSectionSelect: (section: string) => void;
 }
 
-export default function Sidebar({ userDetails, loading }: SidebarProps) {
+export default function Sidebar({
+  userDetails,
+  loading,
+  onSectionSelect,
+}: SidebarProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <>
@@ -76,6 +81,7 @@ export default function Sidebar({ userDetails, loading }: SidebarProps) {
 
         <nav className="space-y-4">
           <a
+            onClick={() => onSectionSelect("createTemplate")}
             href="#"
             className="flex items-center space-x-2 font-medium hover:bg-gray-200 p-2 rounded-md"
           >
@@ -97,6 +103,7 @@ export default function Sidebar({ userDetails, loading }: SidebarProps) {
             <span>Support</span>
           </a>
           <a
+            onClick={() => onSectionSelect("account")}
             href="#"
             className="flex items-center space-x-2 text-gray-600 mt-4"
           >

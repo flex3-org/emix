@@ -20,7 +20,7 @@ const getUserData = async (clerkId: string) => {
   const values = [clerkId];
 
   const res = await pool.query(query, values);
-  return res.rows[0]; // Assuming clerkId is unique
+  return res.rows[0];
 };
 
 export async function GET(
