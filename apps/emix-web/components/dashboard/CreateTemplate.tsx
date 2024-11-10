@@ -72,9 +72,10 @@ export default function CreateTemplate({ userDetails }: CreateTemplateProps) {
       const mjmlCode = response.data.code;
       setMjmlContent(mjmlCode);
       updateHtmlContent(mjmlCode);
+      console.log(userDetails);
 
       //@ts-ignore
-      await deductCredits(user.id, 20);
+      await deductCredits(userDetails.clerk_id, 20);
     } catch (err) {
       toast.error("Some internal error occured try again.");
       console.log("Error creating email:", err);
@@ -117,16 +118,26 @@ export default function CreateTemplate({ userDetails }: CreateTemplateProps) {
       <h1 className="text-3xl font-bold mb-6 hidden lg:block">
         Create Template
       </h1>
-      <form className="bg-white p-4 lg:p-6 rounded-lg shadow-sm mb-6">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (!topic.trim()) {
+            alert("Please enter a prompt");
+          } else {
+            createMJLMEmail();
+          }
+        }}
+        className="bg-white p-4 lg:p-6 rounded-lg shadow-sm mb-6"
+      >
         <textarea
           onChange={(e) => setTopic(e.target.value)}
-          placeholder="Ask emailer an email..."
+          placeholder="Ask emix an email..."
           className="outline-none w-full mb-4"
+          required
         />
         <div className="flex justify-end">
           <button
-            onClick={createMJLMEmail}
-            disabled={isLoading} // Disable the button when loading
+            disabled={isLoading}
             className={`bg-black text-white rounded-md px-3 py-2 ${
               isLoading ? "opacity-50 cursor-not-allowed" : ""
             }`}
@@ -162,6 +173,7 @@ export default function CreateTemplate({ userDetails }: CreateTemplateProps) {
           </button>
         </div>
       </form>
+
       <div className="bg-white p-4 lg:p-6 rounded-lg shadow-sm">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 space-y-4 lg:space-y-0">
           <h2 className="text-xl font-semibold">Generated Email</h2>
